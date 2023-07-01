@@ -109,7 +109,7 @@ while(True):
     for i in range(len(rev_use)):
         
         if(i != 0):                     
-            OUT[i] = IN[i-1]
+            OUT[i] = IN[i-1].copy()
         IN[i] = (list(set(rev_use[i] + (list(set(OUT[i]) - set(rev_def[i]))))) )
     
     #condição de parada
