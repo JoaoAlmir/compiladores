@@ -70,29 +70,35 @@ for i in range(len(lista_nos)):
 
 
 lista_gen = []
-temp_gen = []
+aux_gen = []
+letras_vistas = []
 
 # lista geracao
 for i in range(len(lista_nos)):
     for j in reversed(range(len(lista_nos[i]['expr']))):
-        temp_gen+= letras_usadas[i][j]
+        letras_vistas+= letras_usadas[i][j]
         exp = lista_nos[i]['expr'][j]
         calc = exp[2:]
-        if(exp[0] not in temp_gen and not calc.isnumeric()):
-            lista_gen.append(calc)
-    temp_gen = []
+        if(exp[0] not in letras_vistas and not calc.isnumeric()):
+            aux_gen.append(exp)
+    lista_gen.append(aux_gen)
+    aux_gen = []
+    letras_vistas = []
 
 print(lista_gen)
-# print(letras_usadas)
 
 lista_kill = []
-
-for i in range(len(lista_nos)):
-    for j in range(len(lista_nos[i]['expr'])):
-        exp = lista_nos[i]['expr'][j]
+aux_kill = []
+# lista de letras usadas para kill
+for i in range(len(lista_gen)):
+    for j in range(len(lista_gen[i])):
+        exp = lista_gen[i][j]
         calc = exp[2:]
-        if calc in lista_gen:
-            print(lista_nos[i]['expr'][j])
+        filt_calc = re.sub(r'[^a-zA-Z]', '', calc)
+        aux_kill.append(filt_calc)
+        
+
+print(aux_kill)
 
 dic_def = {}
 
