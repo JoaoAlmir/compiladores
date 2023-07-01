@@ -109,8 +109,9 @@ for _ in range(len(lista_gen)):
     OUT.append([])
 
 #obtendo IN e OUT
-while(True):
-    ant_IN = IN.copy()
+# while(True):
+for _ in range(10):
+    ant_IN = OUT.copy()
     for i in range(len(lista_gen)):
         if(i != 0):                     
             IN[i] = OUT[i-1].copy()
@@ -121,29 +122,17 @@ while(True):
         break
 
 
-#transformando expressões em d0, d1, d2, ...
-for i in range(len(lista_gen)):
-    for j in range(len(lista_gen[i])):
-        lista_gen[i][j] = dic_def[lista_gen[i][j]]
-for i in range(len(lista_mata)):
-    for j in range(len(lista_mata[i])):
-        lista_mata[i][j] = dic_def[lista_mata[i][j]]
-for i in range(len(IN)):
-    for j in range(len(IN[i])):
-        IN[i][j] = dic_def[IN[i][j]]
-for i in range(len(OUT)):
-    for j in range(len(OUT[i])):
-        OUT[i][j] = dic_def[OUT[i][j]]
 
 
 
 
 
-print(dic_def,'\n')
 
-for i in range(len(lista_nos)):
-    lista_nos[i]['IN'] = IN[i]
-    lista_nos[i]['OUT'] = OUT[i]
-    lista_nos[i]['gera'] = lista_gen[i]
-    lista_nos[i]['mata'] = lista_mata[i]
-    print(lista_nos[i])
+# print(dic_def,'\n')
+
+# for i in range(len(lista_nos)):
+#     lista_nos[i]['IN'] = IN[i]
+#     lista_nos[i]['OUT'] = OUT[i]
+#     lista_nos[i]['gera'] = lista_gen[i]
+#     lista_nos[i]['mata'] = lista_mata[i]
+#     print(lista_nos[i])
