@@ -1,5 +1,3 @@
-import re
-
 entrada = """1 2
 a=a+c
 b=4-a

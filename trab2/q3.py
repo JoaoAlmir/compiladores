@@ -1,5 +1,3 @@
-import re
-
 entrada = """1 2
 a=a+c
 b=4-a
@@ -20,6 +18,8 @@ no = {
     "succ":[],
     "gera":[],
     "mata":[],
+    "IN":[],
+    "OUT":[],
 
 }
 
@@ -52,87 +52,52 @@ while no["succ"]!= "0":
     del entrada[0:int(entrada[0][2])+2]
 
 
+lista_calc = []
 
-
-definicoes = []
-gen = []
-lista_gen = []
-
-
-# obtendo definicoes
 for i in range(len(lista_nos)):
     for j in range(len(lista_nos[i]['expr'])):
         exp = lista_nos[i]['expr'][j]
-        gen.append(exp)
-        definicoes.append(exp)
-    lista_gen.append(gen)
-    gen = []
+        calc = exp[2:]
+        lista_calc.append(calc)
 
 
 dic_def = {}
 
-#dicionario de morte
-for i in range(len(definicoes)):
-    dic_def.update({definicoes[i]:"d"+str(i+1)})
 
+for i in range(len(lista_calc)):
+    dic_def.update({lista_calc[i]:"e"+str(i+1)})
 
-dic_mata = {}
-aux_mata = []
-lista_mata = []
+print(dic_def)
 
-#dicionario mata
-for i in range(len(definicoes)):
-    for j in range(len(definicoes)):
-        if i != j:
-            if definicoes[i][0] == definicoes[j][0]:
-                aux_mata.append(definicoes[j])
-    dic_mata.update({definicoes[i]:aux_mata})
-    aux_mata = []
+# IN = []
+# OUT = [] 
+# ant_IN = []
 
-aux_mata = []
+# for _ in range(len(lista_gen)):
+#     IN.append([])
+#     OUT.append([])
 
-# lista mata
-for i in range(len(lista_nos)):
-    for j in range(len(lista_nos[i]['expr'])):
-        exp = lista_nos[i]['expr'][j]
-        if dic_mata[exp] != []:
-            aux_mata.append(dic_mata[exp])
-    lista_mata += aux_mata
-    aux_mata = []
-            
-IN = []
-OUT = [] 
-ant_IN = []
-
-for _ in range(len(lista_gen)):
-    IN.append([])
-    OUT.append([])
-
-#obtendo IN e OUT
-# while(True):
-for _ in range(10):
-    ant_IN = OUT.copy()
-    for i in range(len(lista_gen)):
-        if(i != 0):                     
-            IN[i] = OUT[i-1].copy()
-        OUT[i] = (list(set(lista_gen[i] + (list(set(IN[i]) - set(lista_mata[i]))))) )
+# #obtendo IN e OUT
+# # while(True):
+# for _ in range(10):
+#     ant_IN = OUT.copy()
+#     for i in range(len(lista_gen)):
+#         if(i != 0):                     
+#             IN[i] = OUT[i-1].copy()
+#         OUT[i] = (list(set(lista_gen[i] + (list(set(IN[i]) - set(lista_mata[i]))))) )
     
-    #condição de parada
-    if(ant_IN == IN):
-        break
-
-
-
-
+#     #condição de parada
+#     if(ant_IN == IN):
+#         break
 
 
 
 
 # print(dic_def,'\n')
 
-# for i in range(len(lista_nos)):
-#     lista_nos[i]['IN'] = IN[i]
-#     lista_nos[i]['OUT'] = OUT[i]
-#     lista_nos[i]['gera'] = lista_gen[i]
-#     lista_nos[i]['mata'] = lista_mata[i]
-#     print(lista_nos[i])
+for i in range(len(lista_nos)):
+    # lista_nos[i]['IN'] = IN[i]
+    # lista_nos[i]['OUT'] = OUT[i]
+    # lista_nos[i]['gera'] = lista_gen[i]
+    # lista_nos[i]['mata'] = lista_mata[i]
+    print(lista_nos[i])
