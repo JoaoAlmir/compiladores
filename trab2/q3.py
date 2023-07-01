@@ -72,6 +72,7 @@ for i in range(len(lista_nos)):
 lista_gen = []
 temp_gen = []
 
+# lista geracao
 for i in range(len(lista_nos)):
     for j in reversed(range(len(lista_nos[i]['expr']))):
         temp_gen+= letras_usadas[i][j]
@@ -81,14 +82,27 @@ for i in range(len(lista_nos)):
             lista_gen.append(calc)
     temp_gen = []
 
-# print(lista_gen)
-
 print(lista_gen)
+# print(letras_usadas)
+
+lista_kill = []
+
+for i in range(len(lista_nos)):
+    for j in range(len(lista_nos[i]['expr'])):
+        exp = lista_nos[i]['expr'][j]
+        calc = exp[2:]
+        if calc in lista_gen:
+            print(lista_nos[i]['expr'][j])
 
 dic_def = {}
 
+
+# dicionario para transformar expressoes em e1, e2, e3...
 for i in range(len(temp_calc)):
     dic_def.update({temp_calc[i]:"e"+str(i+1)})
+
+
+
 
 # print(dic_def)
 
