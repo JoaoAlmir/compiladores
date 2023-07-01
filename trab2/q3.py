@@ -1,3 +1,5 @@
+import re
+
 entrada = """1 2
 a=a+c
 b=4-a
@@ -5,7 +7,7 @@ b=4-a
 2 1
 b=20*c
 3
-3 2
+3 2 
 d=a+b
 b=0
 0"""
@@ -13,7 +15,7 @@ b=0
 entrada = entrada.split("\n")
 
 no = {
-    "bloco": -1,
+    "bloco": -1,    
     "expr":[],
     "succ":[],
     "gera":[],
@@ -52,22 +54,46 @@ while no["succ"]!= "0":
     del entrada[0:int(entrada[0][2])+2]
 
 
-lista_calc = []
+lista_gen = []
+filt_calc = []
+lista_gen = []
 
 for i in range(len(lista_nos)):
     for j in range(len(lista_nos[i]['expr'])):
         exp = lista_nos[i]['expr'][j]
         calc = exp[2:]
-        lista_calc.append(calc)
+        filt_calc = re.sub(r'[^a-zA-Z]', '', calc)
+        lista_gen.append(filt_calc)
+
+print("lista_gen",lista_gen)
+
+
+for i in range(len(lista_nos)):
+    for j in range(len(lista_nos[i]['expr'])):
+        exp = lista_nos[i]['expr'][j]
+        calc = exp[2:]
+        
+
+
+        
+
+
+
+
+# for i in range(len(lista_nos)):
+#     for j in range(len(lista_nos[i]['expr'])):
+#         exp = lista_nos[i]['expr'][j]
+#         calc = exp[2:]
+#         if(calc[0] not in letras_calc[i] and not calc.isnumeric()):
+#             lista_gen.append(calc)
 
 
 dic_def = {}
 
+for i in range(len(lista_gen)):
+    dic_def.update({lista_gen[i]:"e"+str(i+1)})
 
-for i in range(len(lista_calc)):
-    dic_def.update({lista_calc[i]:"e"+str(i+1)})
-
-print(dic_def)
+# print(dic_def)
 
 # IN = []
 # OUT = [] 
@@ -95,9 +121,9 @@ print(dic_def)
 
 # print(dic_def,'\n')
 
-for i in range(len(lista_nos)):
-    # lista_nos[i]['IN'] = IN[i]
-    # lista_nos[i]['OUT'] = OUT[i]
-    # lista_nos[i]['gera'] = lista_gen[i]
-    # lista_nos[i]['mata'] = lista_mata[i]
-    print(lista_nos[i])
+# for i in range(len(lista_nos)):
+#     # lista_nos[i]['IN'] = IN[i]
+#     # lista_nos[i]['OUT'] = OUT[i]
+#     # lista_nos[i]['gera'] = lista_gen[i]
+#     # lista_nos[i]['mata'] = lista_mata[i]
+    # print(lista_nos[i])
