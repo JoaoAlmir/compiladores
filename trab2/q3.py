@@ -54,44 +54,38 @@ while no["succ"]!= "0":
     del entrada[0:int(entrada[0][2])+2]
 
 
-lista_gen = []
+temp_calc = []
 filt_calc = []
-lista_gen = []
+letras_usadas = []
 
+#lista de letras usadas na operaçao
 for i in range(len(lista_nos)):
     for j in range(len(lista_nos[i]['expr'])):
         exp = lista_nos[i]['expr'][j]
         calc = exp[2:]
         filt_calc = re.sub(r'[^a-zA-Z]', '', calc)
-        lista_gen.append(filt_calc)
+        temp_calc.append(filt_calc)
+    letras_usadas.append(temp_calc)
+    temp_calc = []
 
-print("lista_gen",lista_gen)
 
+lista_gen = []
 
 for i in range(len(lista_nos)):
-    for j in range(len(lista_nos[i]['expr'])):
+    for j in reversed(range(len(lista_nos[i]['expr']))):
         exp = lista_nos[i]['expr'][j]
         calc = exp[2:]
-        
+        if(exp[0] not in letras_usadas[i][j] and not calc.isnumeric()):
+            lista_gen.append(calc)
 
+# print(lista_gen)
 
-        
-
-
-
-
-# for i in range(len(lista_nos)):
-#     for j in range(len(lista_nos[i]['expr'])):
-#         exp = lista_nos[i]['expr'][j]
-#         calc = exp[2:]
-#         if(calc[0] not in letras_calc[i] and not calc.isnumeric()):
-#             lista_gen.append(calc)
-
+print(lista_gen)
 
 dic_def = {}
 
-for i in range(len(lista_gen)):
-    dic_def.update({lista_gen[i]:"e"+str(i+1)})
+for i in range(len(temp_calc)):
+    dic_def.update({temp_calc[i]:"e"+str(i+1)})
 
 # print(dic_def)
 
