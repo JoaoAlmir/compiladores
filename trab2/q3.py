@@ -70,13 +70,16 @@ for i in range(len(lista_nos)):
 
 
 lista_gen = []
+temp_gen = []
 
 for i in range(len(lista_nos)):
     for j in reversed(range(len(lista_nos[i]['expr']))):
+        temp_gen+= letras_usadas[i][j]
         exp = lista_nos[i]['expr'][j]
         calc = exp[2:]
-        if(exp[0] not in letras_usadas[i][j] and not calc.isnumeric()):
+        if(exp[0] not in temp_gen and not calc.isnumeric()):
             lista_gen.append(calc)
+    temp_gen = []
 
 # print(lista_gen)
 
