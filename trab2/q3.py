@@ -103,22 +103,23 @@ for i in range(len(lista_gen)):
 print(lista_livre_gen)
 print(aux_kill)
 
-exp_kill = []
+lista_kill = []
 
 #preencher lista_kill com vazio
 for _ in aux_kill:
-    exp_kill.append('')
+    lista_kill.append('')
 
 temp_kill = []
+
 
 for i in range(len(lista_livre_gen)):
     for j in range(len(aux_kill)):
         if i != j:
             if lista_livre_gen[i][0] in aux_kill[j]:
-                exp_kill[i] = lista_livre_gen[j]
+                lista_kill[i] = lista_livre_gen[j]
 
 
-print(exp_kill)
+print(lista_kill)
 
 
 
