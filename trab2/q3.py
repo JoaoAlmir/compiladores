@@ -68,10 +68,11 @@ for i in range(len(lista_nos)):
     letras_usadas.append(temp_calc)
     temp_calc = []
 
-
+lista_livre_gen = []
 lista_gen = []
 aux_gen = []
 letras_vistas = []
+
 
 # lista geracao
 for i in range(len(lista_nos)):
@@ -80,35 +81,54 @@ for i in range(len(lista_nos)):
         exp = lista_nos[i]['expr'][j]
         calc = exp[2:]
         if(exp[0] not in letras_vistas and not calc.isnumeric()):
-            aux_gen.append(exp)
+            aux_gen.append(calc)
+            lista_livre_gen.append(exp)
     lista_gen.append(aux_gen)
     aux_gen = []
     letras_vistas = []
 
-print(lista_gen)
 
-lista_kill = []
+
 aux_kill = []
+
+
 # lista de letras usadas para kill
 for i in range(len(lista_gen)):
     for j in range(len(lista_gen[i])):
         exp = lista_gen[i][j]
-        calc = exp[2:]
-        filt_calc = re.sub(r'[^a-zA-Z]', '', calc)
+        filt_calc = re.sub(r'[^a-zA-Z]', '', exp)
         aux_kill.append(filt_calc)
         
 
+print(lista_livre_gen)
 print(aux_kill)
 
+exp_kill = []
+
+#preencher lista_kill com vazio
+for _ in aux_kill:
+    exp_kill.append('')
+
+temp_kill = []
+
+for i in range(len(lista_livre_gen)):
+    for j in range(len(aux_kill)):
+        if i != j:
+            if lista_livre_gen[i][0] in aux_kill[j]:
+                exp_kill[i] = lista_livre_gen[j]
+
+
+print(exp_kill)
+
+
+
+
+
+
 dic_def = {}
-
-
 # dicionario para transformar expressoes em e1, e2, e3...
 for i in range(len(temp_calc)):
     dic_def.update({temp_calc[i]:"e"+str(i+1)})
-
-
-
 
 # print(dic_def)
 
