@@ -57,6 +57,7 @@ while no["succ"]!= "0":
 temp_calc = []
 filt_calc = []
 letras_usadas = []
+definicoes = []
 
 #lista de letras usadas na operaçao
 for i in range(len(lista_nos)):
@@ -64,6 +65,7 @@ for i in range(len(lista_nos)):
         exp = lista_nos[i]['expr'][j]
         calc = exp[2:]
         filt_calc = re.sub(r'[^a-zA-Z]', '', calc)
+        definicoes.append(calc)
         temp_calc.append(filt_calc)
     letras_usadas.append(temp_calc)
     temp_calc = []
@@ -100,14 +102,14 @@ for i in range(len(lista_gen)):
         aux_kill.append(filt_calc)
         
 
-print(lista_livre_gen)
-print(aux_kill)
+# print(lista_livre_gen)
+# print(aux_kill)
 
 lista_kill = []
 
 #preencher lista_kill com vazio
 for _ in aux_kill:
-    lista_kill.append('')
+    lista_kill.append([])
 
 temp_kill = []
 
@@ -116,52 +118,49 @@ for i in range(len(lista_livre_gen)):
     for j in range(len(aux_kill)):
         if i != j:
             if lista_livre_gen[i][0] in aux_kill[j]:
-                lista_kill[i] = lista_livre_gen[j]
-
-
-print(lista_kill)
-
-
+                temp_kill.append(lista_livre_gen[j])
+    lista_kill[i] = temp_kill
+    temp_kill = []
 
 
 
 
 dic_def = {}
 # dicionario para transformar expressoes em e1, e2, e3...
-for i in range(len(temp_calc)):
-    dic_def.update({temp_calc[i]:"e"+str(i+1)})
+for i in range(len(definicoes)):
+
+    dic_def.update({definicoes[i]:"e"+str(i+1)})
 
 # print(dic_def)
 
-# IN = []
-# OUT = [] 
-# ant_IN = []
 
-# for _ in range(len(lista_gen)):
-#     IN.append([])
-#     OUT.append([])
+IN = []
+OUT = [] 
+ant_IN = []
 
-# #obtendo IN e OUT
-# # while(True):
-# for _ in range(10):
-#     ant_IN = OUT.copy()
-#     for i in range(len(lista_gen)):
-#         if(i != 0):                     
-#             IN[i] = OUT[i-1].copy()
-#         OUT[i] = (list(set(lista_gen[i] + (list(set(IN[i]) - set(lista_mata[i]))))) )
+for _ in range(len(lista_gen)):
+    IN.append([])
+    OUT.append([])
+
+#obtendo IN e OUT
+while(True):
+    ant_IN = IN.copy()
+    for i in range(len(lista_gen)):
+        if(i != 0):                     
+            IN[i] = OUT[i-1].copy()
+        OUT[i] = (list(set(lista_gen[i] + (list(set(IN[i]) - set(lista_kill[i]))))) )
     
-#     #condição de parada
-#     if(ant_IN == IN):
-#         break
+    #condição de parada
+    if(ant_IN == IN):
+        break
 
 
+print(dic_def,'\n')
 
 
-# print(dic_def,'\n')
-
-# for i in range(len(lista_nos)):
-#     # lista_nos[i]['IN'] = IN[i]
-#     # lista_nos[i]['OUT'] = OUT[i]
-#     # lista_nos[i]['gera'] = lista_gen[i]
-#     # lista_nos[i]['mata'] = lista_mata[i]
-    # print(lista_nos[i])
+for i in range(len(lista_nos)):
+    lista_nos[i]['IN'] = IN[i]
+    lista_nos[i]['OUT'] = OUT[i]
+    lista_nos[i]['gera'] = lista_gen[i]
+    lista_nos[i]['mata'] = lista_kill[i]
+    print(lista_nos[i])
